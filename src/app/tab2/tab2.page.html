@@ -7,9 +7,14 @@
 
     <app-explore-container></app-explore-container>
     <div id="container">
-      <p class="askPermissionCont last">
-        <ion-button expand="block" (click)="takePhoto()">Tee pilt</ion-button>
-      </p>
+      <h1 class="title-text">Photo Gallery</h1>
+      <div class="button" (click)="takePhoto()">
+        <svg class="icon" width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.438 10.4982C13.438 8.76139 12.0296 7.35297 10.2927 7.35297C8.55588 7.35297 7.14746 8.76139 7.14746 10.4982C7.14746 12.2351 8.55588 13.6435 10.2927 13.6435C12.0296 13.6435 13.438 12.2351 13.438 10.4982Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2925 18.2002C18.3377 18.2002 19.2956 15.7897 19.2956 10.5665C19.2956 6.90549 18.8114 4.94654 15.7619 4.10443C15.4819 4.01601 15.1714 3.84759 14.9198 3.57075C14.5135 3.12549 14.2167 1.75812 13.2356 1.34443C12.2546 0.931801 8.31457 0.950749 7.34931 1.34443C6.3851 1.73917 6.07141 3.12549 5.6651 3.57075C5.41352 3.84759 5.10404 4.01601 4.82299 4.10443C1.77352 4.94654 1.28931 6.90549 1.28931 10.5665C1.28931 15.7897 2.2472 18.2002 10.2925 18.2002Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.2045 7.00012H15.2135" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Take Photo</div>
       <img *ngFor="let image of images" [src]="image" alt="Image Source" height="300" width="300" />
     </div>
 </div>
