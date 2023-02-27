@@ -41,8 +41,7 @@ export class ExploreContainerComponent {
     const photoBase64 = await Camera.getPhoto({
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
-      quality: 5,
-      allowEditing: true,
+      quality: 10,
     });
 
     console.log('base64:', photoBase64);
