@@ -61,6 +61,7 @@ yarn-error.log
 /coverage
 /libpeerconnection.log
 testem.log
+package-lock.json
 /typings
 
 # System files
