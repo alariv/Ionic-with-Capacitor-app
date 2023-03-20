@@ -13,7 +13,7 @@ npm install -g @ionic/cli@latest
 
 # in project directory
 npm i
-npm run serve
+npm run start
 # application will be served on localhost:8080
 ```
 
