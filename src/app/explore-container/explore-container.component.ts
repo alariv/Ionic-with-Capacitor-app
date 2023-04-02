@@ -6,7 +6,7 @@ import {
   CameraSource,
 } from '@capacitor/camera';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { dummyImage } from './image.const';
+import { dummyImage } from '../tab2/image.const';
 @Component({
   selector: 'app-explore-container',
   templateUrl: './explore-container.component.html',
@@ -36,12 +36,13 @@ export class ExploreContainerComponent {
   }
   refreshPermissions() {
     this.getPermissions();
+    // cameraPermission = JSON.stringify(this.permissionsState);
   }
   takePhoto = async () => {
     const photoBase64 = await Camera.getPhoto({
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
-      quality: 10,
+      // quality: 10,
     });
 
     console.log('base64:', photoBase64);
@@ -50,5 +51,6 @@ export class ExploreContainerComponent {
     );
   };
 
-  cameraPermission = JSON.stringify(this.permissionsState);
+  // cameraPermission = JSON.stringify(this.permissionsState);
+  cameraPermissiontest = 'JSON.stringify(this.permissionsState)';
 }
