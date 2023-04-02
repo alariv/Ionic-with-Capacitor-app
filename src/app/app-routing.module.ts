@@ -13,7 +13,11 @@ const routes: Routes = [
       import('./ar-launcher/ar-launcher.module').then(
         (m) => m.ARLauncherPageModule
       ),
-  },
+    },
+     { 
+    path: 'ar',
+    loadChildren: () => import('./ar/ar.module').then( m => m.ARPageModule)
+     }
 ];
 @NgModule({
   imports: [
