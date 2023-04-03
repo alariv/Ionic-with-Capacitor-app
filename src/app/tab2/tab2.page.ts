@@ -22,15 +22,23 @@ export class Tab2Page {
   constructor(private sanitizer: DomSanitizer) {}
 
   takePhoto = async () => {
-    const photoBase64 = await Camera.getPhoto({
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Camera,
-      // quality: 10,
-    });
+    const result = await Camera.requestPermissions();
+    if (result.camera && result.photos) {
+      // Has camera access
+      const photoBase64 = await Camera.getPhoto({
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+        // quality: 10,
+      });
 
-    console.log('base64:', photoBase64);
-    this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `data:image/png;base64, ${photoBase64.base64String || dummyImage}`
-    );
+      console.log('base64:', photoBase64);
+      this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `data:image/png;base64, ${photoBase64.base64String || dummyImage}`
+      );
+    } else {
+      console.error('No access to camera');
+    }
+
+
   };
 }
