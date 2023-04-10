@@ -22,14 +22,20 @@ export class Tab2Page {
     );
 
   images: string[]  = [];
+  imageCache : string[] = [];
 
   constructor(private sanitizer: DomSanitizer, private storage: Storage) {}
 
   async ngOnInit() {
     await this.storage.create();
-    const photos = await this.storage.get('photos');
+    const photos = await this.storage.get('photoCache');
     if (photos) {
-      this.images = JSON.parse(photos);
+      this.imageCache = JSON.parse(photos);
+      for (const photo of this.imageCache) {
+        this.images.push(<string>this.sanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/png;base64, ${photo}`
+        ));
+      }
     }
   }
 
@@ -47,6 +53,9 @@ export class Tab2Page {
       this.images.push(<string>this.sanitizer.bypassSecurityTrustResourceUrl(
         `data:image/png;base64, ${photoBase64.base64String}`
       ));
+      if (photoBase64.base64String != null) {
+        this.imageCache.push(photoBase64.base64String);
+      }
       this.onPhotosUpdated();
     } else {
       console.error('No access to camera');
@@ -54,6 +63,6 @@ export class Tab2Page {
   };
 
   onPhotosUpdated() {
-    this.storage.set('photos', JSON.stringify(this.images));
+    this.storage.set('photoCache', JSON.stringify(this.imageCache));
   }
 }
