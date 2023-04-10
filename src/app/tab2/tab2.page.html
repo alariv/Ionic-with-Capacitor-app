@@ -16,8 +16,6 @@
     <p class="askPermissionCont last">
       <ion-button expand="block" (click)="takePhoto()">Tee pilt</ion-button>
     </p>
-    <div *ngFor="let image in images">
-      <img [src]="image" alt="Image Source" height="300" width="300" />
-    </div>
+      <img *ngFor="let image of images" [src]="image" alt="Image Source" height="300" width="300" />
   </div>
 </ion-content>
