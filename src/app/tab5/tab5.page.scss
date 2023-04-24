@@ -1,0 +1,15 @@
+#container, form {
+	display: flex;
+}
+
+label {
+	padding: 10px 5px 15px;
+}
+
+#number, #pilt, #nimi, #email {
+	margin: 5px;
+}
+
+#nimi, #email {
+	font-size: 24px;
+}
