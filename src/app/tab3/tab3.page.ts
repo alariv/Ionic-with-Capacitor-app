@@ -10,7 +10,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 export class Tab3Page {
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
   initialForecast = {
     location: {
       name: '',
@@ -54,12 +55,23 @@ export class Tab3Page {
   };
   result: any = {};
 
+  showHourly(id:any):void{
+    const hiddenBoi:any = document.getElementById(id);
+    if(hiddenBoi.style.display=="none"){
+      hiddenBoi.style.display="flex";
+    } else {
+      hiddenBoi.style.display = "none";
+    }
+  }
+
+
   fetchLastTenDays = async () => {
     console.log('fetchLastTenDays');
     const endDate = new Date(new Date().getTime() - 1 * (1000 * 60 * 60 * 24));
     const startDate = new Date(
       new Date().getTime() - 7 * (1000 * 60 * 60 * 24)
     );
+    console.log(startDate);
     const url = `https://weatherapi-com.p.rapidapi.com/history.json?q=Tallinn&dt=${startDate.getFullYear()}-${
       startDate.getMonth() + 1
     }-${startDate.getDate()}&end_dt=${endDate.getFullYear()}-${
