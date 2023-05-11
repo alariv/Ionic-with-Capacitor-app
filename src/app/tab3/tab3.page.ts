@@ -12,9 +12,7 @@ export class Tab3Page {
   constructor() {}
 
   ngOnInit() {
-    
-    
-    const lastTenDays:any = this.fetchLastTenDays(); //Toppige fn-d mis peavad kohe loadime ngOnInit sisse, laeb kiiremini kui välja kutsumine
+    this.fetchLastTenDays(); //Toppige fn-d mis peavad kohe loadime ngOnInit sisse, laeb kiiremini kui välja kutsumine
   }
   initialForecast = {
     location: {

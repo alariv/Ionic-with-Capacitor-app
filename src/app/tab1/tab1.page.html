@@ -13,8 +13,8 @@
 
   <ion-content [fullscreen]="true">
 
-      <div *ngIf="isLoaded">
-        <div class="forecastDayContainer"  id="{{results.forecast.forecastday[0].date_epoch}}">
+  <div *ngIf="isLoaded">
+    <div class="forecastDayContainer"  id="{{results.forecast.forecastday[0].date_epoch}}">
           
           <div class="forecastDate" id="forecast">
             <img class="fcImg" src="{{results.forecast.forecastday[0].day.condition.icon}}">
