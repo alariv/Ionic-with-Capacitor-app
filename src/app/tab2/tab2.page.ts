@@ -23,6 +23,7 @@ export class Tab2Page {
 
   images: string[]  = [];
   imageCache : string[] = [];
+  public timenow:number = new Date().getHours();
 
   constructor(private sanitizer: DomSanitizer, private storage: Storage) {}
 
@@ -65,4 +66,9 @@ export class Tab2Page {
   onPhotosUpdated() {
     this.storage.set('photoCache', JSON.stringify(this.imageCache));
   }
+
+
+
+
+  
 }
