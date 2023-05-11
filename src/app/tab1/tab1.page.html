@@ -7,12 +7,81 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Hello, user</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 sisu"></app-explore-container>
-  <div id="container">
-    <h1>Navigeeri edasi.</h1>
+  <ion-content [fullscreen]="true">
+
+      <div *ngIf="isLoaded">
+        <div class="forecastDayContainer"  id="{{results.forecast.forecastday[0].date_epoch}}">
+          
+          <div class="forecastDate" id="forecast">
+            <img class="fcImg" src="{{results.forecast.forecastday[0].day.condition.icon}}">
+            <div id="current{{results.forecast.forecastday.length}}">{{results.forecast.forecastday[0].hour[currentHour].temp_c}}°C</div>
+          </div>
+          Today is: <br> {{results.forecast.forecastday[0].date}}
+          <div  class="forecastTemp daily">Daily avg: {{results.forecast.forecastday[0].day.avgtemp_c}}C</div>
+          <br>
+          <div class="hourlyTemps" id="{{results.forecast.forecastday[0].date}}">
+            <div class="hourHolder">
+              <div class="forecastTemp hour" id="{{results.forecast.forecastday[0].hour[0].time}}">{{results.forecast.forecastday[0].hour[0].temp_c}}C</div>
+              <div class="stripe"></div>
+              00:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour" >{{results.forecast.forecastday[0].hour[3].temp_c}}C</div>
+          <div class="stripe"></div>
+          03:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[6].temp_c}}C</div>
+          <div class="stripe"></div>
+          06:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[9].temp_c}}C</div>
+          <div class="stripe"></div>
+          09:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[12].temp_c}}C</div>
+          <div class="stripe"></div>
+          12:00
+        </div>
+      <div class="hourHolder">
+        <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[15].temp_c}}C</div>
+        <div class="stripe"></div>
+        15:00
+      </div>
+      <div class="hourHolder">
+        <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[18].temp_c}}C</div>
+        <div class="stripe"></div>
+        18:00
+      </div>
+      <div class="hourHolder">
+        <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[12].temp_c}}C</div>
+        <div class="stripe"></div>
+        21:00
+      </div>
+      <div class="hourHolder">
+        <div class="forecastTemp hour">{{results.forecast.forecastday[0].hour[23].temp_c}}C</div>
+        <div class="stripe"></div>
+        23:00
+      </div>  
+    </div>
+    <br>
+    <div id="sunStuff">
+      <div class="sun">Sunrise: {{results.forecast.forecastday[0].astro.sunrise}}</div>
+      <div class="sun">Sunset: {{results.forecast.forecastday[0].astro.sunset}}</div>
+    </div>
+    <br>
+    <div class="forecastCondition" id="{{results.forecast.forecastday[0].day.condition.text}}">{{results.forecast.forecastday[0].day.condition.text}}</div>
+    
   </div>
+  
+</div>
 </ion-content>
+
+</ion-content>
+

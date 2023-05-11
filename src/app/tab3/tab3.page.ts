@@ -8,9 +8,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class Tab3Page {
+  public isLoaded:boolean = false;
   constructor() {}
 
   ngOnInit() {
+    
+    
+    const lastTenDays:any = this.fetchLastTenDays(); //Toppige fn-d mis peavad kohe loadime ngOnInit sisse, laeb kiiremini kui välja kutsumine
   }
   initialForecast = {
     location: {
@@ -57,7 +61,7 @@ export class Tab3Page {
 
   showHourly(id:any):void{
     const hiddenBoi:any = document.getElementById(id);
-    if(hiddenBoi.style.display=="none"){
+    if(hiddenBoi.style.display=="none" || hiddenBoi.style.display=="" ){
       hiddenBoi.style.display="flex";
     } else {
       hiddenBoi.style.display = "none";
@@ -91,6 +95,7 @@ export class Tab3Page {
       const result = await response.json();
       console.log(result);
       this.result = result;
+      this.isLoaded = true; //pls use this EVERY time kui callite mingit infot; html elemendis kus tahate näidata seda infi kasutage *ngIf="isLoaded" :)
       return result || {};
     } catch (error) {
       console.error(error);
@@ -98,6 +103,5 @@ export class Tab3Page {
       return error;
     }
   };
-
-  lastTenDays = this.fetchLastTenDays();
 }
+

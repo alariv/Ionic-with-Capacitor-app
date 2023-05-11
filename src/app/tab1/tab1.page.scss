@@ -1,0 +1,47 @@
+
+
+.forecastDayContainer{
+    padding: 3%;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    margin-top:10%;
+    text-shadow: 1px 1px rgb(255, 255, 255);
+    color: black;
+    background-image: url("./pics/sunny.jpg");
+
+}
+.fcImg{
+    width: 40%;
+    height: 40%;
+    margin-right: 25%;
+}
+.forecastDate{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    font-size: 15vw;
+    margin-right:100px;
+}
+.hourHolder{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 8px;
+    font-size: 3.4vw !important;
+  }
+  .stripe{
+    margin:0;
+    border:0;
+    width: 2px;
+    height: 15vw;
+    background-color: #5555ff;
+    border-radius: 1%;
+  }
+  .hourlyTemps{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #181818 !important;
+    font-size: 14px;
+  }
