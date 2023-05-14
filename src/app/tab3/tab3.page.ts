@@ -8,7 +8,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class Tab3Page {
-  public isLoaded:boolean = false;
+  public isLoaded: boolean = false;
   constructor() {}
 
   ngOnInit() {
@@ -57,15 +57,14 @@ export class Tab3Page {
   };
   result: any = {};
 
-  showHourly(id:any):void{
-    const hiddenBoi:any = document.getElementById(id);
-    if(hiddenBoi.style.display=="none" || hiddenBoi.style.display=="" ){
-      hiddenBoi.style.display="flex";
+  showHourly(id: any): void {
+    const hiddenBoi: any = document.getElementById(id);
+    if (hiddenBoi.style.display == 'none' || hiddenBoi.style.display == '') {
+      hiddenBoi.style.display = 'flex';
     } else {
-      hiddenBoi.style.display = "none";
+      hiddenBoi.style.display = 'none';
     }
   }
-
 
   fetchLastTenDays = async () => {
     console.log('fetchLastTenDays');
@@ -102,4 +101,3 @@ export class Tab3Page {
     }
   };
 }
-

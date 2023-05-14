@@ -20,43 +20,50 @@
     <a-entity camera></a-entity>
   </a-scene>
   <ion-content [fullscreen]="true">
-
-  <ng-template *ngIf="isLoaded" ngFor let-day [ngForOf]="result.forecast.forecastday">
-    
-    <div class="forecastDayContainer" id="{{day.date_epoch}}">
-            
-            <div class="forecastDate">
-              <img class="fcImg" src="{{day.day.condition.icon}}">
-              {{day.date}}
+    <div *ngIf="!isLoaded" class="spinnerContainer">
+      <ion-spinner class="spinner"></ion-spinner>
+    </div>
+    <ng-template
+      *ngIf="isLoaded"
+      ngFor
+      let-day
+      [ngForOf]="result.forecast.forecastday"
+    >
+      <div class="forecastDayContainer" id="{{day.date_epoch}}">
+        <div class="forecastDate">
+          <img class="fcImg" src="{{day.day.condition.icon}}" />
+          {{day.date}}
+        </div>
+        <div class="forecastTemp daily">Daily avg: {{day.day.avgtemp_c}}C</div>
+        <br />
+        <div class="hourlyTemps" id="{{day.date}}">
+          <div class="hourHolder">
+            <div class="forecastTemp hour" id="{{day.hour[0].time}}">
+              {{day.hour[0].temp_c}}C
             </div>
-            <div  class="forecastTemp daily">Daily avg: {{day.day.avgtemp_c}}C</div>
-            <br>
-            <div class="hourlyTemps" id="{{day.date}}">
-              <div class="hourHolder">
-                <div class="forecastTemp hour" id="{{day.hour[0].time}}">{{day.hour[0].temp_c}}C</div>
-                <div class="stripe"></div>
-                00:00
-              </div>
-              <div class="hourHolder">
-                <div class="forecastTemp hour" >{{day.hour[3].temp_c}}C</div>
-                <div class="stripe"></div>
-                03:00
-              </div>
-              <div class="hourHolder">
-                <div class="forecastTemp hour">{{day.hour[6].temp_c}}C</div>
-                <div class="stripe"></div>
-                06:00
-              </div>
-              <div class="hourHolder">
-                <div class="forecastTemp hour">{{day.hour[9].temp_c}}C</div>
-                <div class="stripe"></div>
-                09:00
-              </div>
-              <div class="hourHolder">
-                <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
-                <div class="stripe"></div>
-                12:00
-              </div>
+            <div class="stripe"></div>
+            00:00
+          </div>
+          <div class="hourHolder">
+            <div class="forecastTemp hour">{{day.hour[3].temp_c}}C</div>
+            <div class="stripe"></div>
+            03:00
+          </div>
+          <div class="hourHolder">
+            <div class="forecastTemp hour">{{day.hour[6].temp_c}}C</div>
+            <div class="stripe"></div>
+            06:00
+          </div>
+          <div class="hourHolder">
+            <div class="forecastTemp hour">{{day.hour[9].temp_c}}C</div>
+            <div class="stripe"></div>
+            09:00
+          </div>
+          <div class="hourHolder">
+            <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
+            <div class="stripe"></div>
+            12:00
+          </div>
           <div class="hourHolder">
             <div class="forecastTemp hour">{{day.hour[15].temp_c}}C</div>
             <div class="stripe"></div>
@@ -76,19 +83,19 @@
             <div class="forecastTemp hour">{{day.hour[23].temp_c}}C</div>
             <div class="stripe"></div>
             23:00
-          </div>  
+          </div>
         </div>
-        <br>
+        <br />
         <div id="sunStuff">
           <div class="sun">Sunrise: {{day.astro.sunrise}}</div>
           <div class="sun">Sunset: {{day.astro.sunset}}</div>
         </div>
-        <br>
+        <br />
         <div class="forecastCondition">{{day.day.condition.text}}</div>
-        <div class="forecastContinue" (click)="showHourly(day.date)">Hourly temp
+        <div class="forecastContinue" (click)="showHourly(day.date)">
+          Hourly temp
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </div>
-        
       </div>
     </ng-template>
   </ion-content>
