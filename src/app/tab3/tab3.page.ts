@@ -59,11 +59,20 @@ export class Tab3Page {
 
   showHourly(id: any): void {
     const hiddenBoi: any = document.getElementById(id);
+    const icon = document.getElementById('icon' + id);
+    if (icon) {
+      icon.classList.toggle('rotate');
+    }
     if (hiddenBoi.style.display == 'none' || hiddenBoi.style.display == '') {
       hiddenBoi.style.display = 'flex';
     } else {
       hiddenBoi.style.display = 'none';
     }
+  }
+
+  isOpen(id: any) {
+    const hiddenBoi: any = document.getElementById(id);
+    return (hiddenBoi.style.display == 'flex');
   }
 
   fetchLastTenDays = async () => {

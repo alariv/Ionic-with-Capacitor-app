@@ -6,59 +6,35 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  public isLoaded2:boolean = false;
   public results:any;
   public currentHour:number = new Date().getHours();
   public result:any;
-  public isLoaded:boolean=false;
-  public UVsuggestions:any = [
-    "UV index is minimal, nothing to worry about",
-    "UV index is low. Wear a hat and/or sunglasses to protect your eyes",
-    "UV index is moderate. Sunglasses and a hat is recommended. Use sunscreen with an SPF of at least 30",
-    "UV index is high! Minimize sun exposure during midday(10am - 4pm). Try to stay in shade when outside. SPF with at least 30 sunscreen is a must",
-    "UV index is extremely high! Apply sunscreen of SPF 30 or above every 2 hours or you'll burn in less than 5 minutes. The sun is a deadly laser!"];
-  public TempSuggestions:any = [
-    "It's very cold outside. Wear winter attire or stay indoors.",
-    "It's cold outside. Wear long sleeved clothes, hat, gloves and a scarf",
-    "Not too hot, not too cold. Wear spring or autumn attire (jacket, long pants etc)",
-    "It's pretty warm. You'll manage with just a jumper and long sleeved pants",
-    "Summertime! T-shirts, shorts and flippers. Don't forget to drink lots of water to avoid dehydration. Just in case check UV index!"
-  ];
-  public conditionSuggestions:any= [
-    "It's snowing! If going outside, wear multiple layers of clothing that can protect you from the cold",
-    "It's cloudy. Take a jacket with you!",
-    "There's overcast. Refer to outside temperature for clothing",
-    "It's sunny. Wear headwear such as hats to protect from direct sunlight. Check UV index!",
-    "There is a thunderstorm! Avoid going outside or if you do, avoid powerlines, bodies of water and standing under trees",
-    "It's raining. Take an umbrella with you or wear water-resistant clothing."
-  ];
-  public UVmessage:any;
-  public TempMessage:any;
-  public conditionMessage:any;
-  public tempHTML:any;
-  public UVHTML:any;
-  public conditionHTML:any;
 
-  
-  
+  conditionMessage: { title: string; subtitle: string } = ConditionSuggestion.overcast;
+  uvMessage: { title: string; subtitle: string } = UVSuggestion.minimal;
+  weatherImage: string = WeatherImage.day.clear;
+
+  uvIndex = 0;
+  temperature = 0;
+  maxTemp = 0;
+  minTemp = 0;
+  condition = "";
+
+
+
   constructor(
   ) {
-    
+
   }
 
   ngOnInit(){
     this.fetchLastDay();
-    
-    this.tempHTML = document.getElementById("tempSuggestion");
-    this.UVHTML = document.getElementById("UVSuggestion");
-    this.conditionHTML = document.getElementById("conditionSuggestion");
-    
   }
 
   fetchLastDay = async () => {
-    const endDate = new Date(new Date().getTime() +0 * (1000 * 60 * 60 * 24));
+    const endDate = new Date(new Date().getTime());
     const startDate = new Date(
-      new Date().getTime() -0 * (1000 * 60 * 60 * 24)
+      new Date().getTime()
     );
     const url = `https://weatherapi-com.p.rapidapi.com/history.json?q=Tallinn&dt=${startDate.getFullYear()}-${
       startDate.getMonth() + 1
@@ -77,10 +53,12 @@ export class Tab1Page {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result);
+      this.temperature = Math.round(result.forecast.forecastday[0].hour[this.currentHour].temp_c);
+      this.minTemp = Math.round(result.forecast.forecastday[0].day.mintemp_c);
+      this.maxTemp = Math.round(result.forecast.forecastday[0].day.maxtemp_c);
+      this.condition = result.forecast.forecastday[0].hour[this.currentHour].condition.text;
       this.results = result;
       this.getSuggestions();
-      this.isLoaded = true;
       return result || {};
     } catch (error) {
       console.error(error);
@@ -90,49 +68,144 @@ export class Tab1Page {
   };
 
   getSuggestions():void{
-    if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 0.0){
-      this.TempMessage = this.TempSuggestions[0];
-    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 0.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 10.0){
-      this.TempMessage = this.TempSuggestions[1];
-    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 10.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 15.0){
-      this.TempMessage = this.TempSuggestions[2];
-    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c >= 15.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 20.0){
-      this.TempMessage = this.TempSuggestions[3];
-    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 20.0 ){
-      this.TempMessage = this.TempSuggestions[4];
-    }
-
-    if(this.results.forecast.forecastday[0].day.condition.text == "Overcast"){
-      this.conditionMessage = this.conditionSuggestions[2];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "Sunny"){
-      this.conditionMessage = this.conditionSuggestions[3];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "Thunderstorms"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[4];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "Rain"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[5];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "Snow"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[0];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "Partly cloudy"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[1];
+    if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text == "Overcast"){
+      this.conditionMessage = ConditionSuggestion.overcast;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text == "Sunny"){
+      this.conditionMessage = ConditionSuggestion.sunny;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text== "Thunderstorms"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.thunderstorm;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text == "Rain"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.rain;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text== "Snow"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.snow;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text == "Cloudy"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.cloudy;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text== "Partly cloudy"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.cloudy;
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].condition.text == "Clear"){ //To be changed
+      this.conditionMessage = ConditionSuggestion.clear;
     }
     if(this.results.forecast.forecastday[0].day.uv < 3){
-      this.UVmessage = this.UVsuggestions[0];
+      this.uvMessage = UVSuggestion.minimal;
     } else if(this.results.forecast.forecastday[0].day.uv > 2 && this.results.forecast.forecastday[0].day.uv < 6){
-      this.UVmessage = this.UVsuggestions[1];
+      this.uvMessage = UVSuggestion.low;
     } else if(this.results.forecast.forecastday[0].day.uv > 5 && this.results.forecast.forecastday[0].day.uv < 8){ //To be changed
-      this.UVmessage = this.UVsuggestions[2];
+      this.uvMessage = UVSuggestion.moderate;
     } else if(this.results.forecast.forecastday[0].day.uv > 7 && this.results.forecast.forecastday[0].day.uv < 11){ //To be changed
-      this.UVmessage = this.UVsuggestions[3];
+      this.uvMessage = UVSuggestion.high;
     } else if(this.results.forecast.forecastday[0].day.uv >=11){ //To be changed
-      this.UVmessage = this.UVsuggestions[4]
+      this.uvMessage = UVSuggestion.extreme;
     }
 
-    this.tempHTML.innerHTML = this.TempMessage;
-    this.conditionHTML.innerHTML = this.conditionMessage;
-    this.UVHTML.innerHTML = this.UVmessage;
-    this.isLoaded2 = true;
+    const image = this.currentHour > 6 && this.currentHour < 20 ? WeatherImage.day : WeatherImage.night;
+    const conditionStr = this.results.forecast.forecastday[0].hour[this.currentHour].condition.text;
+    console.warn(conditionStr);
+    switch (conditionStr) {
+      case "Overcast":
+        this.weatherImage = image.overcast;
+        break;
+      case "Sunny":
+        this.weatherImage = image.sunny;
+        break;
+      case "Thunderstorms":
+        this.weatherImage = image.thunderstorm;
+        break;
+      case "Rain":
+        this.weatherImage = image.rain;
+        break;
+      case "Snow":
+        this.weatherImage = image.snow;
+        break;
+      case "Cloudy":
+        this.weatherImage = image.cloudy;
+        break;
+      case "Partly cloudy":
+        this.weatherImage = image.cloudy;
+        break;
+      case "Clear":
+        this.weatherImage = image.clear;
+        break;
+      default:
+        this.weatherImage = image.overcast;
+        break;
+    }
+
   }
+}
 
 
 
+export const UVSuggestion = {
+  "minimal": {
+    title: "UV index is minimal",
+    subtitle: "Nothing to worry about!",
+  },
+  "low": {
+    title: "UV index is low",
+    subtitle: "Wear a hat and/or sunglasses to protect your eyes.",
+  },
+  "moderate": {
+    title: "UV index is moderate",
+    subtitle: "Sunglasses and a hat is recommended. Use sunscreen with an SPF of at least 30.",
+  },
+  "high": {
+    title: "UV index is high",
+    subtitle: "Minimize sun exposure during midday(10am - 4pm). Try to stay in shade when outside. SPF with at least 30 sunscreen is a must.",
+  },
+  "extreme": {
+    title: "UV index is extremely high",
+    subtitle: "Apply sunscreen of SPF 30 or above every 2 hours or you'll burn in less than 5 minutes. The sun is a deadly laser!",
+  }
+}
+
+export const ConditionSuggestion = {
+  snow: {
+    title: "It's snowing!",
+    subtitle: "If going outside, wear multiple layers of clothing that can protect you from the cold.",
+  },
+  cloudy: {
+    title: "It's cloudy.",
+    subtitle: "Take a jacket with you!",
+  },
+  overcast: {
+    title: "There's overcast.",
+    subtitle: "Refer to outside temperature for clothing.",
+  },
+  sunny: {
+    title: "It's sunny!",
+    subtitle: "Wear headwear such as hats to protect from direct sunlight. Check UV index!",
+  },
+  thunderstorm: {
+    title: "There is a thunderstorm!",
+    subtitle: "Avoid going outside or if you do, avoid powerlines, bodies of water and standing under trees.",
+  },
+  rain: {
+    title: "It's raining.",
+    subtitle: "Take an umbrella with you or wear water-resistant clothing.",
+  },
+  clear: {
+    title: "Clear skies!",
+    subtitle: "Enjoy the nice weather, with clouds nowhere in sight.",
+  }
+}
+
+export const WeatherImage = {
+  day: {
+    sunny: "assets/images/sun/26.png",
+    cloudy: "assets/images/sun/27.png",
+    overcast: "assets/images/cloud/33.png",
+    snow: "assets/images/cloud/23.png",
+    thunderstorm: "assets/images/sun/16.png",
+    rain: "assets/images/sun/8.png",
+    clear: "assets/images/sun/6.png",
+  },
+  night: {
+    sunny: "assets/images/moon/10.png",
+    cloudy: "assets/images/moon/15.png",
+    overcast: "assets/images/cloud/32.png",
+    snow: "assets/images/cloud/23.png",
+    thunderstorm: "assets/images/moon/20.png",
+    rain: "assets/images/moon/1.png",
+    clear: "assets/images/moon/2.2.png",
+  }
 }

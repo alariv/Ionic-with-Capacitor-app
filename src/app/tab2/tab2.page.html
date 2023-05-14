@@ -1,23 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Tab 2 </ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="home-container">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large"></ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"></ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container></app-explore-container>
-  <div id="container">
-    <p class="askPermissionCont last">
-      <ion-button expand="block" (click)="takePhoto()">Tee pilt</ion-button>
-    </p>
+    <app-explore-container></app-explore-container>
+    <div id="container">
+      <p class="askPermissionCont last">
+        <ion-button expand="block" (click)="takePhoto()">Tee pilt</ion-button>
+      </p>
       <img *ngFor="let image of images" [src]="image" alt="Image Source" height="300" width="300" />
-  </div>
-
-  
-</ion-content>
+    </div>
+</div>

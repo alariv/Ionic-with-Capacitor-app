@@ -1,47 +1,188 @@
-
-
-.forecastDayContainer{
-    padding: 3%;
-    background-color: red;
-    display: flex;
-    flex-direction: column;
-    margin-top:10%;
-    text-shadow: 1px 1px rgb(255, 255, 255);
-    color: black;
-    background-image: url("./pics/sunny.jpg");
-
+.home-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0B0C1E;
+  z-index: 1000;
 }
-.fcImg{
-    width: 40%;
-    height: 40%;
-    margin-right: 25%;
+
+.location-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  gap: 4px;
+
+  position: absolute;
+  width: 73px;
+  height: 21px;
+  top: 25px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
-.forecastDate{
-    margin-top: 5%;
-    display: flex;
-    flex-direction: row;
-    font-size: 15vw;
-    margin-right:100px;
+
+.location-text {
+  width: 46px;
+  height: 21px;
+
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-left: 5px;
+  color: #FFFFFF;
 }
-.hourHolder{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 8px;
-    font-size: 3.4vw !important;
-  }
-  .stripe{
-    margin:0;
-    border:0;
-    width: 2px;
-    height: 15vw;
-    background-color: #5555ff;
-    border-radius: 1%;
-  }
-  .hourlyTemps{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    color: #181818 !important;
-    font-size: 14px;
-  }
+
+.top-container {
+  margin-top: 80px;
+  margin-left: 7.5vw;
+  display: flex;
+  height: auto;
+}
+
+.top-text {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  /* or 24px */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.035em;
+
+  color: #FFFFFF;
+}
+
+.image-container {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.image {
+  width: 250px;
+  height: auto;
+}
+
+.backdrop {
+  position: absolute;
+  width: 334px;
+  height: 154px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 25vh;
+  z-index: -1000;
+  background: linear-gradient(90.13deg, rgba(187, 4, 203, 0.6) 28.68%, rgba(0, 102, 255, 0.6) 73.19%);
+  filter: blur(77px);
+}
+
+.info-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.temperature {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 77px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.small-container {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 23px;
+}
+
+.weather-text {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.weather-subtext {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #BEBEBE;
+  margin: 0;
+}
+
+.content-tab {
+  margin-top: 25px;
+  margin-left: 7.5vw;
+  margin-right: 7.5vw;
+  padding-left: 20px;
+  height: 77px;
+  background: linear-gradient(0deg, rgba(11, 12, 30, 0.45), rgba(11, 12, 30, 0.45)), #171829;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title-text {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  margin: 0 0 2px;
+}
+
+.small-text {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+.icon-container {
+  margin-right: 23px;
+}
+
+.content-container {
+  margin-right: 20px;
+}

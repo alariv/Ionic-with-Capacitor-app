@@ -1,1 +1,30 @@
+.container {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  width: 85%;
+  background: linear-gradient(0deg, rgba(11, 12, 30, 0.45), rgba(11, 12, 30, 0.45)), #171829;
+  border-radius: 16px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.item {
+  margin-bottom: -2px;
+
+}
+
+.icon {
+  fill: #96969E;
+  transition: fill 0.5s ease;
+}
+
+.active {
+  fill: #0095FF;
+}
