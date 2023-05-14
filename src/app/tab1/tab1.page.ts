@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  public isLoaded2:boolean = false;
   public results:any;
   public currentHour:number = new Date().getHours();
   public result:any;
@@ -34,6 +35,10 @@ export class Tab1Page {
   public UVmessage:any;
   public TempMessage:any;
   public conditionMessage:any;
+  public tempHTML:any;
+  public UVHTML:any;
+  public conditionHTML:any;
+
   
   
   constructor(
@@ -43,34 +48,11 @@ export class Tab1Page {
 
   ngOnInit(){
     this.fetchLastDay();
-  }
-  
-  getSuggestions():void{
-    if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 0){
-      this.TempMessage = this.TempSuggestions[0];
-    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 10){
-      this.TempMessage = this.TempSuggestions[1];
-    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 10 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 15){
-      this.TempMessage = this.TempSuggestions[2];
-    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c >= 15 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 20){
-      this.TempMessage = this.TempSuggestions[3];
-    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 20 ){
-      this.TempMessage = this.TempSuggestions[4];
-    }
-
-    if(this.results.forecast.forecastday[0].day.condition.text == "overcast"){
-      this.conditionMessage = this.conditionSuggestions[2];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "sunny"){
-      this.conditionMessage = this.conditionSuggestions[3];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "thunderstorms"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[4];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "rain"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[5];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "snow"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[0];
-    } else if(this.results.forecast.forecastday[0].day.condition.text == "cloudy"){ //To be changed
-      this.conditionMessage = this.conditionSuggestions[1];
-    }
+    
+    this.tempHTML = document.getElementById("tempSuggestion");
+    this.UVHTML = document.getElementById("UVSuggestion");
+    this.conditionHTML = document.getElementById("conditionSuggestion");
+    
   }
 
   fetchLastDay = async () => {
@@ -97,6 +79,7 @@ export class Tab1Page {
       const result = await response.json();
       console.log(result);
       this.results = result;
+      this.getSuggestions();
       this.isLoaded = true;
       return result || {};
     } catch (error) {
@@ -105,5 +88,51 @@ export class Tab1Page {
       return error;
     }
   };
+
+  getSuggestions():void{
+    if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 0.0){
+      this.TempMessage = this.TempSuggestions[0];
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 0.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 10.0){
+      this.TempMessage = this.TempSuggestions[1];
+    } else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 10.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 15.0){
+      this.TempMessage = this.TempSuggestions[2];
+    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c >= 15.0 && this.results.forecast.forecastday[0].hour[this.currentHour].temp_c < 20.0){
+      this.TempMessage = this.TempSuggestions[3];
+    }else if(this.results.forecast.forecastday[0].hour[this.currentHour].temp_c > 20.0 ){
+      this.TempMessage = this.TempSuggestions[4];
+    }
+
+    if(this.results.forecast.forecastday[0].day.condition.text == "Overcast"){
+      this.conditionMessage = this.conditionSuggestions[2];
+    } else if(this.results.forecast.forecastday[0].day.condition.text == "Sunny"){
+      this.conditionMessage = this.conditionSuggestions[3];
+    } else if(this.results.forecast.forecastday[0].day.condition.text == "Thunderstorms"){ //To be changed
+      this.conditionMessage = this.conditionSuggestions[4];
+    } else if(this.results.forecast.forecastday[0].day.condition.text == "Rain"){ //To be changed
+      this.conditionMessage = this.conditionSuggestions[5];
+    } else if(this.results.forecast.forecastday[0].day.condition.text == "Snow"){ //To be changed
+      this.conditionMessage = this.conditionSuggestions[0];
+    } else if(this.results.forecast.forecastday[0].day.condition.text == "Partly cloudy"){ //To be changed
+      this.conditionMessage = this.conditionSuggestions[1];
+    }
+    if(this.results.forecast.forecastday[0].day.uv < 3){
+      this.UVmessage = this.UVsuggestions[0];
+    } else if(this.results.forecast.forecastday[0].day.uv > 2 && this.results.forecast.forecastday[0].day.uv < 6){
+      this.UVmessage = this.UVsuggestions[1];
+    } else if(this.results.forecast.forecastday[0].day.uv > 5 && this.results.forecast.forecastday[0].day.uv < 8){ //To be changed
+      this.UVmessage = this.UVsuggestions[2];
+    } else if(this.results.forecast.forecastday[0].day.uv > 7 && this.results.forecast.forecastday[0].day.uv < 11){ //To be changed
+      this.UVmessage = this.UVsuggestions[3];
+    } else if(this.results.forecast.forecastday[0].day.uv >=11){ //To be changed
+      this.UVmessage = this.UVsuggestions[4]
+    }
+
+    this.tempHTML.innerHTML = this.TempMessage;
+    this.conditionHTML.innerHTML = this.conditionMessage;
+    this.UVHTML.innerHTML = this.UVmessage;
+    this.isLoaded2 = true;
+  }
+
+
 
 }
