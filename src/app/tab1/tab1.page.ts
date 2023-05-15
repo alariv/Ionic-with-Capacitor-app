@@ -97,6 +97,8 @@ export class Tab1Page {
       this.uvMessage = UVSuggestion.extreme;
     }
 
+    this.uvIndex = this.results.forecast.forecastday[0].hour[this.currentHour].uv;
+
     const image = this.currentHour > 6 && this.currentHour < 20 ? WeatherImage.day : WeatherImage.night;
     const conditionStr = this.results.forecast.forecastday[0].hour[this.currentHour].condition.text;
     console.warn(conditionStr);

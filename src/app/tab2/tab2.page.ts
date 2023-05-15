@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dummyImage } from './image.const';
 import { Storage } from '@ionic/storage-angular';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 import {
   Camera,
@@ -28,6 +29,7 @@ export class Tab2Page {
   constructor(private sanitizer: DomSanitizer, private storage: Storage) {}
 
   async ngOnInit() {
+    this.createDemoPhotos();
     await this.storage.create();
     const photos = await this.storage.get('photoCache');
     if (photos) {
@@ -37,7 +39,36 @@ export class Tab2Page {
           `data:image/png;base64, ${photo}`
         ));
       }
+    } else {
+      this.createDemoPhotos();
     }
+  }
+
+  createDemoPhotos() {
+    this.images = [];
+    this.images.push('assets/images/cloud/5.png');
+    this.images.push('assets/images/cloud/12.png');
+    this.images.push('assets/images/cloud/7.png');
+  }
+
+  async saveImage(index: number) {
+    try {
+      const fileName = new Date().getTime() + '.jpg';
+      const base64 = this.imageCache[index];
+      const savedImage = await Filesystem.writeFile({
+        path: fileName,
+        data: base64,
+        directory: Directory.Data,
+      });
+    } catch (e) {
+      console.error('Error saving image to gallery:', e);
+    }
+  }
+
+  deleteImage(index: number) {
+    this.images.splice(index, 1);
+    this.imageCache.splice(index, 1);
+    this.onPhotosUpdated();
   }
 
   takePhoto = async () => {
@@ -70,5 +101,5 @@ export class Tab2Page {
 
 
 
-  
+
 }

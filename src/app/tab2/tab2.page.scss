@@ -2,6 +2,38 @@
   width: 100vw;
   height: 100vh;
   background-color: #0B0C1E;
+  overflow: scroll;
+  padding-bottom: 15vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  left: 0;
+  right: 0;
+  margin: 0 7.5vw;
+}
+
+.action-icon {
+  width: 50px;
+}
+
+.wrapper img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  margin-bottom: 15px;
 }
 
 .title-text {
