@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dummyImage } from './image.const';
 import { Storage } from '@ionic/storage-angular';
+import { Media, MediaSaveOptions } from "@capacitor-community/media";
 import {Filesystem, Directory, FilesystemDirectory} from '@capacitor/filesystem';
 
 import {
@@ -23,6 +24,7 @@ export class Tab2Page {
     );
 
   images: string[]  = [];
+  saveCache: string[]  = [];
   imageCache : string[] = [];
   public timenow:number = new Date().getHours();
 
@@ -49,20 +51,35 @@ export class Tab2Page {
     this.images.push('assets/images/cloud/7.png');
   }
 
-  async saveImage(index: number) {
-    try {
-      const fileName = new Date().getTime() + '.jpg';
-      const base64 = this.imageCache[index];
-      const savedImage = await Filesystem.writeFile({
-        path: fileName,
-        data: base64,
-        directory: Directory.Data,
-      });
-      this.saveToGallery(savedImage.uri);
-    } catch (e) {
-      console.error('Error saving image to gallery:', e);
-    }
+async saveImage(index: number) {
+  try {
+    const fileName = new Date().getTime() + '.jpg';
+    const base64 = this.imageCache[index];
+    const savedImage = await Filesystem.writeFile({
+      path: `${fileName}`,
+      data: base64,
+      directory: Directory.Data,
+    });
+    this.saveToGallery(this.images[index]);
+    Media.savePhoto({path: savedImage.uri});
+  } catch (error) {
+    console.error('Error saving image to gallery:', error);
   }
+}
+
+async saveToGallery(imagePath: string) {
+  try {
+    const savedImage = await Filesystem.copy({
+      from: imagePath,
+      to: 'photos',
+      directory: FilesystemDirectory.Data
+    });
+    console.log('Image saved to gallery:', savedImage);
+  } catch (error) {
+    console.error('Error saving image to gallery:', error);
+  }
+}
+
 
   deleteImage(index: number) {
     this.images.splice(index, 1);
@@ -70,18 +87,6 @@ export class Tab2Page {
     this.onPhotosUpdated();
   }
 
-  async saveToGallery(imagePath: string) {
-    try {
-      const savedImage = await Filesystem.copy({
-        from: imagePath,
-        to: 'photos',
-        directory: FilesystemDirectory.Data
-      });
-      console.log('Image saved to gallery:', savedImage);
-    } catch (error) {
-      console.error('Error saving image to gallery:', error);
-    }
-  }
 
   takePhoto = async () => {
     const result = await Camera.requestPermissions();
@@ -92,6 +97,7 @@ export class Tab2Page {
         source: CameraSource.Camera,
         // quality: 10,
       });
+      this.saveCache.push(photoBase64.path!);
 
       console.log('base64:', photoBase64);
       this.images.push(<string>this.sanitizer.bypassSecurityTrustResourceUrl(

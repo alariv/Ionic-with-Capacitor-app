@@ -68,9 +68,9 @@ export class Tab3Page {
 
   fetchLastTenDays = async () => {
     console.log('fetchLastTenDays');
-    const endDate = new Date(new Date().getTime() - 1 * (1000 * 60 * 60 * 24));
+    const endDate = new Date(new Date().getTime() + 4 * (1000 * 60 * 60 * 24));
     const startDate = new Date(
-      new Date().getTime() - 7 * (1000 * 60 * 60 * 24)
+      new Date().getTime() - 2 * (1000 * 60 * 60 * 24)
     );
     console.log(startDate);
     const url = `https://weatherapi-com.p.rapidapi.com/history.json?q=Tallinn&dt=${startDate.getFullYear()}-${

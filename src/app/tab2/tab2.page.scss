@@ -6,6 +6,24 @@
   padding-bottom: 15vh;
 }
 
+.backdrop {
+  position: absolute;
+  width: 334px;
+  height: 154px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 25vh;
+  z-index: -1;
+  background: linear-gradient(
+    90.13deg,
+    rgba(187, 4, 203, 0.6) 28.68%,
+    rgba(0, 102, 255, 0.6) 73.19%
+  );
+  filter: blur(77px);
+  -webkit-filter: blur(77px);
+}
+
 .wrapper {
   display: flex;
   flex-direction: row;
