@@ -1,5 +1,12 @@
 # Ionic-with-Capacitor-app
 
+Grupi liikmed:
+- Kati Põdra
+- Kristo Põlluvee
+- Ervin Puust
+- Kevin Iin (git history-s kevinerikiin, flowtheci, f0ltex)
+- Alari Verev
+
 Figma avavaate prototüüp: https://www.figma.com/file/p8VKTR8oSo5a3Neeyx25SR/Untitled?type=design&node-id=0%3A1&t=3tnLwN25KGXU2ASv-1
 
 ## Getting started
