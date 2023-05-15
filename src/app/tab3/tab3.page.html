@@ -1,79 +1,78 @@
-
 <div class="home-container">
-    <h1 class="title-forecast">Weather Forecast</h1>
-    <div class="backdrop"></div>
-      <div *ngIf="!isLoaded" class="spinnerContainer">
-        <ion-spinner class="spinner"></ion-spinner>
-      </div>
-      <ng-template
-        *ngIf="isLoaded"
-        ngFor
-        let-day
-        [ngForOf]="result.forecast.forecastday"
-      >
-        <div class="forecastDayContainer" id="{{day.date_epoch}}">
-          <div class="forecastDate">
-            <img class="fcImg" src="{{day.day.condition.icon}}" />
-            {{day.date}}
-          </div>
-          <div class="forecastTemp daily">Average temperature: {{day.day.avgtemp_c}}C</div>
-          <div class="divider"></div>
-          <div class="forecastContinue" (click)="showHourly(day.date)">
-            Hourly temperatures
-            <ion-icon class="icon-small" id="{{'icon' + day.date}}" name="chevron-forward-outline"></ion-icon>
-          </div>
-          <div class="hourlyTemps" id="{{day.date}}">
-            <div class="hourHolder">
-              <div class="forecastTemp hour" id="{{day.hour[0].time}}">
-                {{day.hour[0].temp_c}}C
-              </div>
-              <div class="stripe"></div>
-              00:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[3].temp_c}}C</div>
-              <div class="stripe"></div>
-              03:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[6].temp_c}}C</div>
-              <div class="stripe"></div>
-              06:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[9].temp_c}}C</div>
-              <div class="stripe"></div>
-              09:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
-              <div class="stripe"></div>
-              12:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[15].temp_c}}C</div>
-              <div class="stripe"></div>
-              15:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[18].temp_c}}C</div>
-              <div class="stripe"></div>
-              18:00
-            </div>
-            <div class="hourHolder">
-              <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
-              <div class="stripe"></div>
-              21:00
-            </div>
-          </div>
-          <br />
-          <div id="sunStuff">
-            <div class="sun">Sunrise: {{day.astro.sunrise}}</div>
-            <div class="sun">Sunset: {{day.astro.sunset}}</div>
-          </div>
-          <br />
-          <div class="forecastCondition">{{day.day.condition.text}}</div>
-        </div>
-      </ng-template>
+  <h1 class="title-forecast">Weather Forecast</h1>
+  <div class="backdrop"></div>
+  <div *ngIf="!isLoaded" class="spinnerContainer">
+    <ion-spinner class="spinner"></ion-spinner>
   </div>
-
+  <ng-template *ngIf="isLoaded" ngFor let-day [ngForOf]="result">
+    <div class="forecastDayContainer" id="{{day.date_epoch}}">
+      <div class="forecastDate">
+        <img class="fcImg" src="https:{{day.day.condition.icon}}" />
+        {{day.date}}
+      </div>
+      <div class="forecastTemp daily">
+        Average temperature: {{day.day.avgtemp_c}}C
+      </div>
+      <div class="divider"></div>
+      <div class="forecastContinue" (click)="showHourly(day.date)">
+        Hourly temperatures
+        <ion-icon
+          class="icon-small"
+          id="{{'icon' + day.date}}"
+          name="chevron-forward-outline"
+        ></ion-icon>
+      </div>
+      <div class="hourlyTemps" id="{{day.date}}">
+        <div class="hourHolder">
+          <div class="forecastTemp hour" id="{{day.hour[0].time}}">
+            {{day.hour[0].temp_c}}C
+          </div>
+          <div class="stripe"></div>
+          00:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[3].temp_c}}C</div>
+          <div class="stripe"></div>
+          03:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[6].temp_c}}C</div>
+          <div class="stripe"></div>
+          06:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[9].temp_c}}C</div>
+          <div class="stripe"></div>
+          09:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
+          <div class="stripe"></div>
+          12:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[15].temp_c}}C</div>
+          <div class="stripe"></div>
+          15:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[18].temp_c}}C</div>
+          <div class="stripe"></div>
+          18:00
+        </div>
+        <div class="hourHolder">
+          <div class="forecastTemp hour">{{day.hour[12].temp_c}}C</div>
+          <div class="stripe"></div>
+          21:00
+        </div>
+      </div>
+      <br />
+      <div id="sunStuff">
+        <div class="sun">Sunrise: {{day.astro.sunrise}}</div>
+        <div class="sun">Sunset: {{day.astro.sunset}}</div>
+      </div>
+      <br />
+      <div class="forecastCondition">{{day.day.condition.text}}</div>
+    </div>
+  </ng-template>
+</div>
