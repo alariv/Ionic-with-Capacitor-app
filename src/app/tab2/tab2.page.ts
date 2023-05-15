@@ -29,7 +29,6 @@ export class Tab2Page {
   constructor(private sanitizer: DomSanitizer, private storage: Storage) {}
 
   async ngOnInit() {
-    this.createDemoPhotos();
     await this.storage.create();
     const photos = await this.storage.get('photoCache');
     if (photos) {
@@ -40,7 +39,6 @@ export class Tab2Page {
         ));
       }
     } else {
-      this.createDemoPhotos();
     }
   }
 
