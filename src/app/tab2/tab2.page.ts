@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { dummyImage } from './image.const';
 import { Storage } from '@ionic/storage-angular';
-import { Filesystem, Directory } from '@capacitor/filesystem';
+import {Filesystem, Directory, FilesystemDirectory} from '@capacitor/filesystem';
 
 import {
   Camera,
@@ -60,6 +60,7 @@ export class Tab2Page {
         data: base64,
         directory: Directory.Data,
       });
+      this.saveToGallery(savedImage.uri);
     } catch (e) {
       console.error('Error saving image to gallery:', e);
     }
@@ -69,6 +70,19 @@ export class Tab2Page {
     this.images.splice(index, 1);
     this.imageCache.splice(index, 1);
     this.onPhotosUpdated();
+  }
+
+  async saveToGallery(imagePath: string) {
+    try {
+      const savedImage = await Filesystem.copy({
+        from: imagePath,
+        to: 'photos',
+        directory: FilesystemDirectory.Data
+      });
+      console.log('Image saved to gallery:', savedImage);
+    } catch (error) {
+      console.error('Error saving image to gallery:', error);
+    }
   }
 
   takePhoto = async () => {
